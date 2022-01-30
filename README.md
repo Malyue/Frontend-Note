@@ -1,2 +1,23 @@
 # Frontend-Note
-The repository will store all my notes about frontend such as html, css and javascipt.
+
+### Description
+01. This is all my notes about frontend studying.
+02. The notes can not ensure that all of the knowledge is covered.
+03. The notes maybe have some mistakes but it is little.
+
+### Including
+01. HTML
+02. CSS
+03. JavaScript
+04. TypeScript
+05. Vue2.x/3.0 + vite
+
+### Origin
+01. These notes were written by the author through the video on the [website](https://www.bilibili.com/).
+02. All of hyperlinks below are the orgin of these notes.
+  - [HTML/CSS](https://www.bilibili.com/video/BV1XJ411X7Ud/);
+  - [Basic JavaScipt](https://www.bilibili.com/video/BV1YW411T7GX/)
+  - [Forward JavaScript](https://www.bilibili.com/video/BV14s411E7qf/)
+  - [ES6-ES11](https://www.bilibili.com/video/BV1uK411H7on/)
+  - [Vue2.x](https://www.bilibili.com/video/BV1Zy4y1K7SH/)
+  - [TypeScript/Vue3.0](https://www.bilibili.com/video/BV1NR4y1x7Ab)
