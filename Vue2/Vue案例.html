@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Vue.js案例</title>
+        <!--引入Vue.js--->
+        <script type="text/javascript" src="../Vue.js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <!--姓名同步变动-->
+            <div>
+                <input type="text" v-model:value="firstName" placeholder="姓" /> <br />
+                <input type="text" v-model:value="lastName" placeholder="名" />
+                <div>姓名:{{fullName}}</div>
+            </div> <br />
+            <!--切换天气-->
+            <div>
+                <div>预计明天的天气是:{{weather}}</div>
+                <button @click="PredictWeather">再次预言</button>
+            </div>
+            <!--模糊搜素:当然可以使用侦听属性进行模糊搜索,相比之下,如果计算属性和侦听属性都可以使用的话,建议使用计算属性-->
+            <div>
+                <input type="text" v-model:value="keyWord" />
+                <ul>
+                    <li v-for="goods_item in searchGoods" :key="goods_item.id">
+                        {{goods_item.name}}: {{goods_item.price}}
+                    </li>
+                </ul>
+                <button v-on:click="sortType = 0">原序</button>
+                <button v-on:click="sortType = 1">升序</button>
+                <button v-on:click="sortType = 2">降序</button>
+            </div>
+        </div>
+        <script type="text/javascript">
+            // 关闭生产环境警告提示
+            Vue.config.productionTip = false;
+            const vm = new Vue({
+                el: '#root',
+                data: {
+                    firstName: '',
+                    lastName: '',
+                    weather: '',
+                    keyWord: '',
+                    sortType: 0,
+                    goods: [
+                        {
+                            id: 0,
+                            name: "大电视",
+                            price: 102405
+                        },
+                        {
+                            id: 1,
+                            name: "小电脑",
+                            price: 99991
+                        },
+                        {
+                            id: 2,
+                            name: "小苹果",
+                            price: 22.6
+                        },
+                        {
+                            id: 3,
+                            name: "VR视觉",
+                            price: 100
+                        }
+                    ]
+                },
+                computed: {
+                    fullName: {
+                        get:function() {
+                            return this.firstName + this.lastName;
+                        },
+                        set:function(value) {
+                            const array = value.split(' ');
+                            this.firstName = array[0];
+                            this.lastName = array[1];
+                        }
+                    },
+                    searchGoods: {
+                        get:function() {
+                            // 过滤关键词
+                            const filterArray = this.goods.filter((goods_list)=>{
+                                return goods_list.name.indexOf(this.keyWord) !== -1;
+                            });
+                            // 对数组进行排序
+                            if(this.sortType) {
+                                filterArray.sort((former, latter)=>{
+                                    return this.sortType === 1 ? latter.price - former.price : former.price - latter.price;
+                                });
+                            }
+                            return filterArray;
+                        }
+                    }
+                },
+                methods: {
+                    PredictWeather:function() {
+                        const weathers = ["晴天", "多云", "下小雨", "下冰雹"];
+                        this.weather = weathers[parseInt(Math.random() * 4)];
+                    }
+                },
+                watch: {
+                    weather: {
+                        handler:function(newValue, oldValue) {
+                            console.log("当前预言的天气", newValue, "前一个预言的天气是:", oldValue);
+                        }
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>
